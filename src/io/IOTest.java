@@ -3,6 +3,7 @@ package io;
 import io.utils.Logs;
 
 import java.io.*;
+import java.util.zip.ZipOutputStream;
 
 /**
  * Created by crazystone on 17-8-5.
@@ -16,10 +17,98 @@ public class IOTest {
 
 //        testDataStream();
 
-//        copyFiles("/home/crazystone/FileTest", "/home/crazystone/copyTest");
 
-        testReaderWriter();
+        copyFiles("/home/crazystone/FileTest", "/home/crazystone/copyTest");
 
+//        testReaderWriter();
+
+//        testRandomAccessFile();
+
+//        testPrintStream();
+
+//        testZipStream();
+
+    }
+
+    private static void testZipStream() {
+        BufferedOutputStream bos = null;
+        try {
+            bos = new BufferedOutputStream(new ZipOutputStream(new FileOutputStream("/home/crazystone/FileTest/testZip.zip")));
+            for (int i = 0; i < 100; i++) {
+                bos.write(i);
+            }
+            bos.flush();
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        } finally {
+            if (bos != null) {
+                try {
+                    bos.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+
+    }
+
+    private static void testPrintStream() {
+        File file = new File("/home/crazystone/FileTest/printTest.txt");
+        if (!file.exists()) {
+            try {
+                file.createNewFile();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+        PrintStream ps = null;
+        try {
+            ps = new PrintStream(file);
+            ps.print("Hello");
+            ps.println();
+            ps.print("World");
+            ps.println();
+            ps.flush();
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } finally {
+            if (ps != null) {
+                ps.close();
+            }
+        }
+
+    }
+
+    private static void testRandomAccessFile() {
+        RandomAccessFile raf = null;
+        RandomAccessFile anotherRaf = null;
+        try {
+            raf = new RandomAccessFile("/home/crazystone/FileTest/rtest.dat", "rw");
+            for (int i = 0; i < 10; i++) {
+                raf.writeDouble(i * 1.432F);
+            }
+            anotherRaf = new RandomAccessFile("/home/crazystone/FileTest/rtest.dat", "rw");
+            anotherRaf.seek(5 * 8);
+            anotherRaf.writeDouble(6.0F);
+            raf = new RandomAccessFile("/home/crazystone/FileTest/rtest.dat", "r");
+            for (int i = 0; i < 10; i++) {
+                Logs.l("value:" + raf.readDouble());
+            }
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        } finally {
+            if (raf != null) {
+                try {
+                    raf.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
     }
 
     private static void testReaderWriter() {
@@ -29,8 +118,8 @@ public class IOTest {
             reader = new FileReader("/home/crazystone/FileTest/test.md");
             writer = new FileWriter("/home/crazystone/FileTest/test1.md");
             BufferedReader br = new BufferedReader(reader);
-            String content="";
-            while ((content=br.readLine())!=null){
+            String content = "";
+            while ((content = br.readLine()) != null) {
                 writer.write(content);
             }
         } catch (FileNotFoundException e) {
@@ -44,7 +133,7 @@ public class IOTest {
                     e.printStackTrace();
                 }
             }
-            if(writer!=null){
+            if (writer != null) {
                 try {
                     writer.flush();
                     writer.close();
@@ -110,7 +199,7 @@ public class IOTest {
             byte[] buffer = new byte[1024];
             while ((len = is.read(buffer)) != -1) {
                 os.write(buffer);
-//                Logs.l(new String(buffer, 0, len));
+//                test.Logs.l(new String(buffer, 0, len));
             }
         } catch (FileNotFoundException e) {
             e.printStackTrace();
@@ -208,7 +297,7 @@ public class IOTest {
             int value = 0;
             //将流对象的中的数据先读到缓存中
 //            while ((len = is.read(buffer)) != -1) {
-//                Logs.l(new String(buffer, 0, len));
+//                test.Logs.l(new String(buffer, 0, len));
 //            }
             while ((value = is.read()) != -1) {
                 Logs.l(value);

@@ -12,21 +12,62 @@ import java.io.IOException;
  */
 public class FileTest {
 
+    private static int level = 0;
+
     public static void main(String... args) {
 
 //        fileProperty();
 //
 //        mkdirsTest();
 
-        File directory = new File("/home/crazystone/FileTest/Test");
-//        deleteDirectory(directory);
+        File directory = new File("/home/crazystone/copyTest");
+        deleteDirectory(directory);
 //        showFileName(directory);
 
-        String[] array = directory.list();
-        for (String s : array) {
-    Logs.l(s);
+//        traverseFile(directory);
+
+//        testFilterFile(directory);
+
+    }
+
+    private static void testFilterFile(File directory) {
+        String[] names = directory.list(new FilenameFilter() {
+            @Override
+            public boolean accept(File dir, String name) {
+//                Logs.l("dir:" + dir + ",name:" + name);
+                return name.lastIndexOf("txt") != -1;
+            }
+        });
+        for (String name : names) {
+            Logs.l(name);
         }
 
+    }
+
+    private static void traverseFile(File directory) {
+        if (directory.exists()) {
+            if (directory.isDirectory()) {
+                printFileTree(directory, level);
+                File[] files = directory.listFiles();
+                level++;
+                for (File file : files) {
+                    traverseFile(file);
+                }
+                //遍历完父文件中的子文件，层级减一
+                level--;
+            } else {
+                printFileTree(directory, level);
+            }
+        } else {
+            Logs.l("this is directory is not exits");
+        }
+    }
+
+    private static void printFileTree(File file, int index) {
+        for (int i = 0; i < index; i++) {
+            System.out.print(" ");
+        }
+        Logs.l("-" + file.getName());
     }
 
     //File 一些最基本的API 不需要记住,看看即可,以后可以看源码
@@ -75,12 +116,16 @@ public class FileTest {
 
     //删除文件夹下的所有文件(稍微综合一点)
     public static void deleteDirectory(File directory) {
+        if (directory == null || !directory.exists()) return;
         if (directory.isDirectory()) {
             File[] files = directory.listFiles();
-            for (File file : files) {
-                deleteDirectory(file);
+            if (files != null) {
+                for (File file : files) {
+                    deleteDirectory(file);
+                }
+                boolean isSuccess = directory.delete();
+                Logs.l(directory.getAbsolutePath() + " delete is " + (isSuccess ? "success" : "fail"));
             }
-            directory.delete();
         } else {
             boolean isSuccess = directory.delete();
             Logs.l(directory.getAbsolutePath() + " delete is " + (isSuccess ? "success" : "fail"));
@@ -94,7 +139,6 @@ public class FileTest {
             }
         }
     }
-
 
 
 }
