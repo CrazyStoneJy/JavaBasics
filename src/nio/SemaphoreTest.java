@@ -26,6 +26,7 @@ public class SemaphoreTest {
 
     private static class DoSomeThing implements Runnable {
 
+        // 控制每次只能有5个线程同时访问
         Semaphore semaphore = new Semaphore(5);
 
         @Override

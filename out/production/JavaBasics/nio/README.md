@@ -31,7 +31,7 @@ public class Foo{
         if(foo == null){
             synchronized (Foo.class){
                 if(foo==null){
-                    return new Foo();
+                    foo = new Foo();
                 }
             }
         }
@@ -94,6 +94,8 @@ Lock和synchronized都是阻塞线程,但是Lock的设计的原意就是让锁�
 死锁的形成原因
 
 死锁的处理方法
+
+[Java多线程 线程同步与死锁](https://www.jianshu.com/p/4ff1bca955c0)
 
 [死锁](https://zh.wikipedia.org/wiki/%E6%AD%BB%E9%94%81)
 

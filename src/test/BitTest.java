@@ -12,14 +12,14 @@ public class BitTest {
 // 转为十进制为 768
 
 
-
-    public static void main(String... args){
+    public static void main(String... args) {
         int a = 0x5555;
-        System.out.print((short)(a<<8|a>>8));
+        System.out.println((short) (a << 8 | a >> 8));
 
-
-
-
+        int b = 0;
+        int c = 3;
+        Logs.l(~b);
+        Logs.l(~c);
 
     }
 

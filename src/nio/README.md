@@ -31,7 +31,7 @@ public class Foo{
         if(foo == null){
             synchronized (Foo.class){
                 if(foo==null){
-                    return new Foo();
+                    foo = new Foo();
                 }
             }
         }
