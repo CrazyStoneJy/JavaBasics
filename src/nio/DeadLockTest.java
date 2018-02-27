@@ -2,7 +2,6 @@ package nio;
 
 import io.utils.Logs;
 import nio.Utils.Threads;
-import okhttp3.Response;
 
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
