@@ -12,7 +12,7 @@ public class MyClass {
     private int count = 5;
 
 
-    private int getCount() {
+    private int getCount(String foo, int a, boolean c) {
         return count;
     }
 

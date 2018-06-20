@@ -8,6 +8,7 @@ import java.lang.reflect.Method;
 /**
  * Created by crazystone on 17-8-10.
  */
+@SuppressWarnings("这是个错误实现")
 public class MethodStatistics {
 
     private static int count = 0;
@@ -32,10 +33,10 @@ public class MethodStatistics {
     }
 
     public static int getMethod(File file) {
-        if (file.getAbsolutePath().lastIndexOf(".class") != -1) {
+        if (file.getAbsolutePath().lastIndexOf(".java") != -1) {
             try {
                 String className = file.getName();
-                Logs.l("name:"+file.getName());
+                Logs.l("name:" + file.getName());
                 Class cls = Class.forName(className);
                 Method[] methods = cls.getDeclaredMethods();
                 count += methods.length;

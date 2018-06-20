@@ -25,48 +25,46 @@ public class ReflectionTest {
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
         }
-        Field[] fields = cls.getDeclaredFields();
+//        Field[] fields = cls.getDeclaredFields();
         Method[] methods = cls.getDeclaredMethods();
-
-        MyClass myClass = new MyClass();
-        try {
-            Method method = cls.getDeclaredMethod("getCount");
-            Logs.l("method parameter count:" + method.getParameterCount());
-            Logs.l("method modifiers:" + method.getModifiers());
-            Logs.l("method return type" + method.getGenericReturnType().getTypeName());
-            Logs.l("method accessible" + method.isAccessible());
-            Logs.l("method value:" + method.getDefaultValue());
-            method.setAccessible(true);
-            Object obj = method.invoke(myClass);
-            Logs.l(obj);
-//            Object defaultValue = method.getDefaultValue();
-//            Logs.l(defaultValue);
-        } catch (NoSuchMethodException e) {
-            e.printStackTrace();
-        } catch (IllegalAccessException e) {
-            e.printStackTrace();
-        } catch (InvocationTargetException e) {
-            e.printStackTrace();
+        if (methods != null && methods.length > 0) {
+            for (Method method : methods) {
+                Class<?> declaringClass = method.getDeclaringClass();
+                Logs.l(">" + declaringClass.getName());
+                if (method.getName().equals("getCount")) {
+                    Class<?>[] types = method.getParameterTypes();
+                    for (Class<?> type : types) {
+                        Logs.l("method parameter type:" + type);
+                    }
+                    Logs.l(method.getName());
+                }
+            }
         }
 
-
-//        MyClass myClass = new MyClass();
-
-//        for (Field field : fields) {
-//            Logs.l(field.getName());
-//            try {
-//                Object obj = field.get(myClass);
-//                Logs.l(obj);
-//            } catch (IllegalAccessException e) {
-//                e.printStackTrace();
-//            }
-//        }
+//        try {
+//            MyClass myClass = (MyClass) cls.newInstance();
+//            Method method = MyClass.class.getDeclaredMethod("getCount");
+//            Logs.l("method parameter count:" + method.getParameterCount());
 //
-//        Logs.l(">>>>>>>>>>>>>>>>");
-//
-//        for (Method method : methods) {
-//            Logs.l(method.getName());
+//            Logs.l("method modifiers:" + method.getModifiers());
+//            Logs.l("method return type" + method.getGenericReturnType().getTypeName());
+//            Logs.l("method accessible" + method.isAccessible());
+//            Logs.l("method value:" + method.getDefaultValue());
+//            method.setAccessible(true);
+//            Object obj = method.invoke(myClass);
+//            Logs.l(obj);
+////            Object defaultValue = method.getDefaultValue();
+////            Logs.l(defaultValue);
+//        } catch (NoSuchMethodException e) {
+//            e.printStackTrace();
+//        } catch (IllegalAccessException e) {
+//            e.printStackTrace();
+//        } catch (InvocationTargetException e) {
+//            e.printStackTrace();
+//        } catch (InstantiationException e) {
+//            e.printStackTrace();
 //        }
+
     }
 
 

@@ -81,7 +81,7 @@ public class FileTest {
             e.printStackTrace();
         }
         Logs.l("this file is exists:" + file.exists());
-        Logs.l("parent File Path:" + file.getParent());
+        Logs.l("parent File annotation.Path:" + file.getParent());
         Logs.l("file is hidden:" + file.isHidden());
         Logs.l("file can read:" + file.canRead());
         Logs.l("file can write:" + file.canWrite());
