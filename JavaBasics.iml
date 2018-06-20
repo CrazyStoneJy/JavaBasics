@@ -23,5 +23,6 @@
     <orderEntry type="library" exported="" name="com.squareup.okhttp3:benchmarks:3.3.1" level="project" />
     <orderEntry type="library" exported="" name="com.squareup:javapoet:1.10.0" level="project" />
     <orderEntry type="library" exported="" name="io.reactivex.rxjava2:rxjava:2.1.7" level="project" />
+    <orderEntry type="library" name="lib" level="project" />
   </component>
 </module>

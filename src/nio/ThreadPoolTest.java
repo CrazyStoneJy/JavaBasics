@@ -1,6 +1,5 @@
 package nio;
 
-import io.netty.util.concurrent.DefaultThreadFactory;
 import io.utils.Logs;
 import nio.Utils.Threads;
 import sun.rmi.runtime.Log;
@@ -98,8 +97,7 @@ public class ThreadPoolTest {
         ExecutorService[] services = new ExecutorService[2];
         for (int i = 0; i < services.length; i++) {
             services[i] = Executors.newFixedThreadPool(
-                    Runtime.getRuntime().availableProcessors() * 2
-                    , new DefaultThreadFactory("wtf"));
+                    Runtime.getRuntime().availableProcessors() * 2);
         }
 
 
